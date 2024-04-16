@@ -6,6 +6,7 @@ public class UI_Manager : MonoBehaviour
 {
     public GameObject mainMenuPanel;
     public GameObject settingsPanel;
+    public AudioSource buttonSound;
 
     void Start()
     {
@@ -48,10 +49,16 @@ public class UI_Manager : MonoBehaviour
 
     public void QuitGame()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // Quit editor play mode
-#else
-        Application.Quit(); // Quit standalone build
-#endif
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false; // Quit editor play mode
+        #else
+                Application.Quit(); // Quit standalone build
+        #endif
     }
+
+    #region Play Sound
+        public void ButtonSound(){
+            buttonSound.Play();
+        }
+    #endregion
 }
