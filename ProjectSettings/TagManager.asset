@@ -41,3 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: FrontLayer
+    uniqueID: 2328717863
+    locked: 0
