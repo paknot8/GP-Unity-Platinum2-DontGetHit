@@ -7,7 +7,6 @@ public class Game_Manager : MonoBehaviour
     private Vector2 vector;
     private Vector3 moveDirection;
 
-    // Update is called once per frame
     void Update()
     {
         Movement();
@@ -15,7 +14,7 @@ public class Game_Manager : MonoBehaviour
 
     void Movement()
     {
-        moveDirection = new Vector3(vector.x, 0f, vector.y);
+        moveDirection = new Vector3(vector.x, vector.y);
         transform.Translate(moveSpeed * Time.deltaTime * moveDirection, Space.World);
     }
 
