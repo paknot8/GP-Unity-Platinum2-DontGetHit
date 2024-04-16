@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,8 +16,20 @@ public class UI_Manager : MonoBehaviour
 
     public void PlayGame()
     {
-        // Load scene 1
-        SceneManager.LoadScene("Scene1");
+        // Start the coroutine to load the scene with a transition effect
+        StartCoroutine(LoadSceneWithTransition(1));
+    }
+
+    IEnumerator LoadSceneWithTransition(int sceneIndex)
+    {
+        // Add transition effect here (e.g., fade out)
+        // Example: FadeOutEffect.StartFade(1.0f); // Assuming you have a script for fading
+
+        // Wait for the transition effect to complete
+        yield return new WaitForSeconds(1.0f); // Adjust the duration according to your transition effect
+
+        // Load the scene
+        SceneManager.LoadScene(1);
     }
 
     public void EnableSettings()
