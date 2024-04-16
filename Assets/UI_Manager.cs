@@ -55,10 +55,4 @@ public class UI_Manager : MonoBehaviour
                 Application.Quit(); // Quit standalone build
         #endif
     }
-
-    #region Play Sound
-        public void ButtonSound(){
-            buttonSound.Play();
-        }
-    #endregion
 }
