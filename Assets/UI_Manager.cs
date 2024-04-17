@@ -17,13 +17,12 @@ public class UI_Manager : MonoBehaviour
 
     public void PlayGame()
     {
-        // Start the coroutine to load the scene with a transition effect
-        StartCoroutine(LoadSceneWithTransition(1));
+        StartCoroutine(LoadSceneWithTransition(1)); // Start the coroutine to load the scene with a transition effect
     }
 
+    // Wait for the transition effect to complete to make fade out effect
     IEnumerator LoadSceneWithTransition(int sceneIndex)
     {
-        // Wait for the transition effect to complete to make fade out effect
         yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(1);
     }
@@ -44,6 +43,12 @@ public class UI_Manager : MonoBehaviour
 
     public void QuitGame()
     {
+        StartCoroutine(ExitWithTransition());
+    }
+
+    IEnumerator ExitWithTransition()
+    {
+        yield return new WaitForSeconds(0.3f);
         #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false; // Quit editor play mode
         #else
