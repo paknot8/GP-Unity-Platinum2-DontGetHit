@@ -5,80 +5,84 @@ using System.Collections;
 
 public class Game_Manager : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    private Vector2 vector;
-    private Vector3 moveDirection;
+    #region Variables & References
+        public float moveSpeed = 5f;
+        private Vector2 vector;
+        private Vector3 moveDirection;
 
-    private bool isPaused = false;
+        private bool isPaused = false;
 
-    private Camera mainCamera;
-    private float minX, maxX, minY, maxY;
-    private float playerWidth, playerHeight;
+        private Camera mainCamera;
+        private float minX, maxX, minY, maxY;
+        private float playerWidth, playerHeight;
 
-    public AudioSource keyPressSound;
-    public GameObject coinPrefab; // Prefab of the coin to spawn
-    public GameObject pauseCanvas;
-    public GameObject lostCanvas;
-    public TextMeshProUGUI healthText;
-    public TextMeshProUGUI scoreText;
-    public static int score = 0;
-    private int healthPoints = 3;
+        public AudioSource keyPressSound;
+        public GameObject coinPrefab; // Prefab of the coin to spawn
+        public GameObject pauseCanvas;
+        public GameObject lostCanvas;
+        public TextMeshProUGUI healthText;
+        public TextMeshProUGUI scoreText;
+        public static int score = 0;
+        private int healthPoints = 3;
 
-    private float spawnYTop; // Y position for top spawn
-    private float spawnYBottom; // Y position for bottom spawn
-    private bool spawnAtTop = true; // Flag to track current spawn position
+        private float spawnYTop; // Y position for top spawn
+        private float spawnYBottom; // Y position for bottom spawn
+        private bool spawnAtTop = true; // Flag to track current spawn position
 
-    // Singleton pattern
-    private static Game_Manager _instance;
-    public static Game_Manager Instance { get { return _instance; } }
+        // Singleton pattern
+        private static Game_Manager _instance;
+        public static Game_Manager Instance { get { return _instance; } }
 
-    // Immunity variables
-    private bool isImmune = false;
-    private readonly float immunityDuration = 2f;
-    private Color immuneColor;
-    private Color originalColor;
+        // Immunity variables
+        private bool isImmune = false;
+        private readonly float immunityDuration = 2f;
+        private Color immuneColor;
+        private Color originalColor;
+    #endregion
 
-    void Awake()
-    {
-        if (transform.GetComponent<SpriteRenderer>() == null)
+    #region Default Unity
+        void Awake()
         {
-            Debug.LogError("SpriteRenderer component not found on player GameObject.");
+            if (transform.GetComponent<SpriteRenderer>() == null)
+            {
+                Debug.LogError("SpriteRenderer component not found on player GameObject.");
+            }
+
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+            }
         }
 
-        if (_instance != null && _instance != this)
+        void Start()
         {
-            Destroy(this.gameObject);
+            PlayerToCameraBorderCheck();
+
+            originalColor = transform.GetComponent<SpriteRenderer>().color;
+
+            spawnYTop = maxY;
+            spawnYBottom = minY;
+
+            UpdateHealthText();
+            // Spawn a coin at the start of the game
+            SpawnNewCoin();
         }
-        else
+
+        void Update()
         {
-            _instance = this;
+            Movement();
         }
-    }
-
-    void Start()
-    {
-        PlayerToCameraBorderCheck();
-
-        originalColor = transform.GetComponent<SpriteRenderer>().color;
-
-        spawnYTop = maxY;
-        spawnYBottom = minY;
-
-        UpdateHealthText();
-        // Spawn a coin at the start of the game
-        SpawnNewCoin();
-    }
-
-    void Update()
-    {
-        Movement();
-    }
+    #endregion
 
     #region Coin Pickup
         public void CoinDestroyed(Coin coin)
         {
-            score++; // Increment the score
-            UpdateScoreText(); // Update the score text
+            score++;
+            UpdateScoreText();
             SpawnNewCoin();
         }
 
@@ -88,7 +92,7 @@ public class Game_Manager : MonoBehaviour
             float spawnY = spawnAtTop ? spawnYTop : spawnYBottom;
             spawnAtTop = !spawnAtTop;
             float randomX = Random.Range(minX, maxX);
-            Vector3 spawnPosition = new Vector3(randomX, spawnY, 0f);
+            Vector3 spawnPosition = new(randomX, spawnY);
             Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
         }
 
