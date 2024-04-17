@@ -7,8 +7,8 @@ public class Game_Manager : MonoBehaviour
 {
     #region Variables & References
         public float moveSpeed = 5f;
-        private Vector2 vector;
-        private Vector3 moveDirection;
+        [HideInInspector] public Vector2 vector;
+        [HideInInspector] public Vector3 moveDirection;
 
         private bool isPaused = false;
 
@@ -67,6 +67,10 @@ public class Game_Manager : MonoBehaviour
 
         void Start()
         {
+            // Default state
+            playerState = idleState;
+            playerState.EnterState(this);
+
             Time.timeScale = 1; // Always start game on normal mode
             PlayerToCameraBorderCheck();
 
@@ -76,8 +80,7 @@ public class Game_Manager : MonoBehaviour
             spawnYBottom = minY;
 
             UpdateHealthText();
-            // Spawn a coin at the start of the game
-            SpawnNewCoin();
+            SpawnNewCoin(); // Spawn the 1st coin at the start of the game
 
             // Load top score from PlayerPrefs
             if(PlayerPrefs.HasKey("TopScore"))
@@ -89,7 +92,15 @@ public class Game_Manager : MonoBehaviour
 
         void Update()
         {
-            Movement();
+            playerState.UpdateState(this);
+            // Movement();
+        }
+
+        public void SwitchState(PlayerBaseState state)
+        {
+            playerState.ExitState(this);
+            playerState = state ?? playerState; // If state is null -> stay on the playerState
+            playerState.EnterState(this);
         }
     #endregion
 
@@ -164,7 +175,7 @@ public class Game_Manager : MonoBehaviour
             maxY = mainCamera.transform.position.y + camHeight / 2f - playerHeight / 2f;
         }
 
-        void Movement()
+        public void Movement()
         {
             moveDirection = new Vector3(vector.x, vector.y);
             Vector3 newPosition = transform.position + moveSpeed * Time.deltaTime * moveDirection;
