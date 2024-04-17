@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerBaseState
 {
-    public override void EnterState(Player player)
+    public override void EnterState(Game_Manager player)
     {
         
     }
 
-    public override void ExitState(Player player)
+    public override void ExitState(Game_Manager player)
     {
         
     }
 
-    public override void UpdateState(Player player)
+    public override void UpdateState(Game_Manager player)
     {
         
     }

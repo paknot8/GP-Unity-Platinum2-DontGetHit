@@ -1,6 +1,6 @@
 public abstract class PlayerBaseState
 {
-    public abstract void EnterState(Player player);
-    public abstract void ExitState(Player player);
-    public abstract void UpdateState(Player player);
+    public abstract void EnterState(Game_Manager player);
+    public abstract void ExitState(Game_Manager player);
+    public abstract void UpdateState(Game_Manager player);
 }
