@@ -17,12 +17,17 @@ public class InGame_UI_Manager : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         if(sceneIndex == 1){
             SceneManager.LoadScene(1);
-        } else {
+        } 
+
+        if(sceneIndex == 0) {
             SceneManager.LoadScene(0);
         } 
+
+        Debug.Log("Failed Nothing Selected Index: " + sceneIndex);
     }
 
-    public void ExitGame(){
+    public void QuitGame()
+    {
         StartCoroutine(ExitWithTransition());
     }
 
@@ -30,9 +35,9 @@ public class InGame_UI_Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
         #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
+                UnityEditor.EditorApplication.isPlaying = false; // Quit editor play mode
         #else
-                Application.Quit();
+                Application.Quit(); // Quit standalone build
         #endif
     }
 }

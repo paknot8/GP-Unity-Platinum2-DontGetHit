@@ -3748,7 +3748,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 520716588}
         m_TargetAssemblyTypeName: InGame_UI_Manager, Assembly-CSharp
-        m_MethodName: GoToMainMenu
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
