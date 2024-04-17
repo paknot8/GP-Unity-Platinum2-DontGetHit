@@ -47,4 +47,9 @@ public class Game_Manager : MonoBehaviour
     }
 
     void OnMove(InputValue value) => vector = value.Get<Vector2>();
+    void OnPause(InputValue value){
+        if(value.isPressed){
+            // Open canvas
+        }
+    }
 }
