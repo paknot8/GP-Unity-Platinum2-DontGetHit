@@ -7,10 +7,7 @@ public class PlayerIdleState : PlayerBaseState
         Debug.Log("Idle State");
     }
 
-    public override void ExitState(Game_Manager player)
-    {
-        
-    }
+    public override void ExitState(Game_Manager player){}
 
     public override void UpdateState(Game_Manager player)
     {

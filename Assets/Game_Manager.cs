@@ -6,34 +6,43 @@ using System.Collections;
 public class Game_Manager : MonoBehaviour
 {
     #region Variables & References
+        [Header("Player Variables")]
         public float moveSpeed = 5f;
+        [SerializeField] private bool isPaused = false;
         [HideInInspector] public Vector2 vector;
         [HideInInspector] public Vector3 moveDirection;
 
-        private bool isPaused = false;
-
+        // --- Camera Border Check --- //
         private Camera mainCamera;
         private float minX, maxX, minY, maxY;
         private float playerWidth, playerHeight;
 
+        [Header("Music & Sound")]
         public AudioSource keyPressSound;
-        public GameObject coinPrefab; // Prefab of the coin to spawn
+
+        [Header("Canvas")]
         public GameObject pauseCanvas;
         public GameObject lostCanvas;
-        public TextMeshProUGUI healthText;
+
+        [Header("Player Score")]
         public TextMeshProUGUI scoreText;
         public TextMeshProUGUI topScoreText;
         private int score = 0;
         private int topScore = 0;
-        private int healthPoints = 3;
 
+        [Header("Player Health")]
+        public TextMeshProUGUI healthText;
+        public int healthPoints = 3;
+
+        [Header("Coins")]
+        public GameObject coinPrefab;
         private float spawnYTop; // Y position for top spawn
         private float spawnYBottom; // Y position for bottom spawn
         private bool spawnAtTop = true; // Flag to track current spawn position
 
         // Singleton pattern
         private static Game_Manager _instance;
-        public static Game_Manager Instance { get { return _instance; } }
+        [HideInInspector] public static Game_Manager Instance { get { return _instance; } }
 
         // Immunity variables
         private bool isImmune = false;
@@ -42,9 +51,9 @@ public class Game_Manager : MonoBehaviour
         private Color originalColor;
 
         // --- Player States --- //
-        public PlayerBaseState playerState;
-        public PlayerIdleState idleState = new();
-        public PlayerMoveState moveState = new();
+        [HideInInspector] public PlayerBaseState playerState;
+        [HideInInspector] public PlayerIdleState idleState = new();
+        [HideInInspector] public PlayerMoveState moveState = new();
     #endregion
 
     #region Default Unity
