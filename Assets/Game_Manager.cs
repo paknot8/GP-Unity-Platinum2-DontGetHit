@@ -23,7 +23,8 @@ public class Game_Manager : MonoBehaviour
         public TextMeshProUGUI healthText;
         public TextMeshProUGUI scoreText;
         public TextMeshProUGUI topScoreText;
-        public static int score = 0;
+        private int score = 0;
+        private int topScore = 0;
         private int healthPoints = 3;
 
         private float spawnYTop; // Y position for top spawn
@@ -71,6 +72,13 @@ public class Game_Manager : MonoBehaviour
             UpdateHealthText();
             // Spawn a coin at the start of the game
             SpawnNewCoin();
+
+            // Load top score from PlayerPrefs
+            if(PlayerPrefs.HasKey("TopScore"))
+            {
+                topScore = PlayerPrefs.GetInt("TopScore");
+                UpdateTopScoreText();
+            }
         }
 
         void Update()
@@ -102,6 +110,33 @@ public class Game_Manager : MonoBehaviour
             if (scoreText != null)
             {
                 scoreText.text = "Score: " + score.ToString();
+            }
+        }
+
+        // Function to update top score text
+        private void UpdateTopScoreText()
+        {
+            if (topScoreText != null)
+            {
+                topScoreText.text = "Top Score: " + topScore.ToString();
+            }
+        }
+
+        // Function to save top score
+        private void SaveTopScore()
+        {
+            PlayerPrefs.SetInt("TopScore", topScore);
+            PlayerPrefs.Save();
+        }
+
+        // Function to check and update top score
+        private void CheckAndUpdateTopScore()
+        {
+            if (score > topScore)
+            {
+                topScore = score;
+                UpdateTopScoreText();
+                SaveTopScore(); // Save new top score
             }
         }
     #endregion
@@ -173,8 +208,9 @@ public class Game_Manager : MonoBehaviour
 
                     if (healthPoints <= 0)
                     {
-                        Time.timeScale = 0;
+                        CheckAndUpdateTopScore();
                         lostCanvas.SetActive(true);
+                        Time.timeScale = 0;
                     }
                 }
             }
