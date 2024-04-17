@@ -17,7 +17,10 @@ public class Game_Manager : MonoBehaviour
 
     public GameObject coinPrefab; // Prefab of the coin to spawn
     public GameObject pauseCanvas;
-    public TextMeshProUGUI healthText; // Text object for displaying health points
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI scoreText;
+    private int score = 0;
+    private int healthPoints = 3;
 
     private float spawnYTop; // Y position for top spawn
     private float spawnYBottom; // Y position for bottom spawn
@@ -26,8 +29,6 @@ public class Game_Manager : MonoBehaviour
     // Singleton pattern
     private static Game_Manager _instance;
     public static Game_Manager Instance { get { return _instance; } }
-
-    private int healthPoints = 3; // Initial health points
 
     // Immunity variables
     private bool isImmune = false;
@@ -69,63 +70,76 @@ public class Game_Manager : MonoBehaviour
         Movement();
     }
 
-    // Method to receive message that a coin has been destroyed
-    public void CoinDestroyed(Coin coin)
-    {
+    #region Coin Pickup
+        // Method to receive message that a coin has been destroyed
         // Instantiate a new coin
-        float spawnY = spawnAtTop ? spawnYTop : spawnYBottom;
-        spawnAtTop = !spawnAtTop;
-        float randomX = Random.Range(minX, maxX);
-        Vector3 spawnPosition = new Vector3(randomX, spawnY, 0f);
-        Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
-    }
+        public void CoinDestroyed(Coin coin)
+        {
+            UpdateScoreText();
+            float spawnY = spawnAtTop ? spawnYTop : spawnYBottom;
+            spawnAtTop = !spawnAtTop;
+            float randomX = Random.Range(minX, maxX);
+            Vector3 spawnPosition = new(randomX, spawnY, 0f);
+            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
+        }
 
-    private void PlayerToCameraBorderCheck()
-    {
-        mainCamera = Camera.main;
+        void UpdateScoreText()
+        {
+            if (scoreText != null)
+            {
+                scoreText.text = "Score: " + score.ToString();
+            }
+        }
+    #endregion
 
-        float camHeight = 2f * mainCamera.orthographicSize;
-        float camWidth = camHeight * mainCamera.aspect;
+    #region Player
+        private void PlayerToCameraBorderCheck()
+        {
+            mainCamera = Camera.main;
 
-        playerWidth = transform.localScale.x;
-        playerHeight = transform.localScale.y;
+            float camHeight = 2f * mainCamera.orthographicSize;
+            float camWidth = camHeight * mainCamera.aspect;
 
-        minX = mainCamera.transform.position.x - camWidth / 2f + playerWidth / 2f;
-        maxX = mainCamera.transform.position.x + camWidth / 2f - playerWidth / 2f;
-        minY = mainCamera.transform.position.y - camHeight / 2f + playerHeight / 2f;
-        maxY = mainCamera.transform.position.y + camHeight / 2f - playerHeight / 2f;
-    }
+            playerWidth = transform.localScale.x;
+            playerHeight = transform.localScale.y;
 
-    void Movement()
-    {
-        moveDirection = new Vector3(vector.x, vector.y);
-        Vector3 newPosition = transform.position + moveSpeed * Time.deltaTime * moveDirection;
+            minX = mainCamera.transform.position.x - camWidth / 2f + playerWidth / 2f;
+            maxX = mainCamera.transform.position.x + camWidth / 2f - playerWidth / 2f;
+            minY = mainCamera.transform.position.y - camHeight / 2f + playerHeight / 2f;
+            maxY = mainCamera.transform.position.y + camHeight / 2f - playerHeight / 2f;
+        }
 
-        float clampedX = Mathf.Clamp(newPosition.x, minX, maxX);
-        float clampedY = Mathf.Clamp(newPosition.y, minY, maxY);
-        transform.position = new Vector3(clampedX, clampedY, transform.position.z);
-    }
+        void Movement()
+        {
+            moveDirection = new Vector3(vector.x, vector.y);
+            Vector3 newPosition = transform.position + moveSpeed * Time.deltaTime * moveDirection;
+
+            float clampedX = Mathf.Clamp(newPosition.x, minX, maxX);
+            float clampedY = Mathf.Clamp(newPosition.y, minY, maxY);
+            transform.position = new Vector3(clampedX, clampedY, transform.position.z);
+        }
+    #endregion
 
     #region New Input System
-    void OnMove(InputValue value) => vector = value.Get<Vector2>();
-    void OnPause(InputValue value){
-        if (value.isPressed)
-        {
-            PauseGame();
-        }
-    }
-
-    private void PauseGame()
-    {
-        isPaused = !isPaused;
-
-        if (pauseCanvas != null)
-        {
-            pauseCanvas.SetActive(isPaused);
+        void OnMove(InputValue value) => vector = value.Get<Vector2>();
+        void OnPause(InputValue value){
+            if (value.isPressed)
+            {
+                PauseGame();
+            }
         }
 
-        Time.timeScale = isPaused ? 0 : 1;
-    }
+        private void PauseGame()
+        {
+            isPaused = !isPaused;
+
+            if (pauseCanvas != null)
+            {
+                pauseCanvas.SetActive(isPaused);
+            }
+
+            Time.timeScale = isPaused ? 0 : 1;
+        }
     #endregion
 
     // Function called when the player collides with something
@@ -134,51 +148,53 @@ public class Game_Manager : MonoBehaviour
         EnemyObject(other);
     }
 
-    private void EnemyObject(Collider2D other)
-    {
-        if (other.CompareTag("EnemyObject"))
+    #region Death & Health
+        private void EnemyObject(Collider2D other)
         {
-            if (!isImmune)
+            if (other.CompareTag("EnemyObject"))
             {
-                StartCoroutine(ImmunityCoroutine());
-
-                if (healthPoints <= 0)
+                if (!isImmune)
                 {
-                    Time.timeScale = 0;
-                    // Open Death menu
+                    StartCoroutine(ImmunityCoroutine());
+
+                    if (healthPoints <= 0)
+                    {
+                        Time.timeScale = 0;
+                        // Open Death menu
+                    }
                 }
             }
         }
-    }
 
-    // Update health text to display current health points
-    void UpdateHealthText()
-    {
-        if (healthText != null)
+        // Coroutine for immunity effect
+        IEnumerator ImmunityCoroutine()
         {
-            healthText.text = "" + healthPoints.ToString();
+            healthPoints--;
+            UpdateHealthText();
+            isImmune = true;
+            Debug.Log("Immunity Active.");
+            
+            Color originalColor = transform.GetComponent<SpriteRenderer>().color;
+
+            immuneColor = Color.red;
+            immuneColor.a = 0.3f; // Transparency
+            transform.GetComponent<SpriteRenderer>().color = immuneColor; 
+
+            yield return new WaitForSeconds(immunityDuration);
+            
+            transform.GetComponent<SpriteRenderer>().color = originalColor;
+
+            isImmune = false;
+            Debug.Log("You can now receive damage.");
         }
-    }
 
-    // Coroutine for immunity effect
-    IEnumerator ImmunityCoroutine()
-    {
-        healthPoints--;
-        UpdateHealthText();
-        isImmune = true;
-        Debug.Log("Immune");
-        
-        Color originalColor = transform.GetComponent<SpriteRenderer>().color;
-
-        immuneColor = Color.red;
-        immuneColor.a = 0.3f; // Transparency
-        transform.GetComponent<SpriteRenderer>().color = immuneColor; 
-
-        yield return new WaitForSeconds(immunityDuration);
-        
-        transform.GetComponent<SpriteRenderer>().color = originalColor;
-
-        isImmune = false;
-        Debug.Log("You can now receive damage");
-    }
+        // Update health text to display current health points
+        void UpdateHealthText()
+        {
+            if (healthText != null)
+            {
+                healthText.text = "HP: " + healthPoints.ToString();
+            }
+        }
+    #endregion
 }
