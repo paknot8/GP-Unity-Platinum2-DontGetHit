@@ -15,6 +15,7 @@ public class Game_Manager : MonoBehaviour
     private float minX, maxX, minY, maxY;
     private float playerWidth, playerHeight;
 
+    public AudioSource keyPressSound;
     public GameObject coinPrefab; // Prefab of the coin to spawn
     public GameObject pauseCanvas;
     public TextMeshProUGUI healthText;
@@ -151,7 +152,7 @@ public class Game_Manager : MonoBehaviour
         private void PauseGame()
         {
             isPaused = !isPaused;
-
+            keyPressSound.Play();
             if (pauseCanvas != null)
             {
                 pauseCanvas.SetActive(isPaused);

@@ -23,11 +23,8 @@ public class UI_Manager : MonoBehaviour
 
     IEnumerator LoadSceneWithTransition(int sceneIndex)
     {
-        // Add transition effect here (e.g., fade out)
-        // Example: FadeOutEffect.StartFade(1.0f); // Assuming you have a script for fading
-
-        // Wait for the transition effect to complete
-        yield return new WaitForSeconds(1.0f); // Adjust the duration according to your transition effect
+        // Wait for the transition effect to complete to make fade out effect
+        yield return new WaitForSeconds(0.3f);
 
         // Load the scene
         SceneManager.LoadScene(1);
