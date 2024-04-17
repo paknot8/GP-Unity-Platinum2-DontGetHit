@@ -3,12 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Coins
+  - EnemyObject
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
@@ -41,6 +43,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: FrontLayer
+  - name: Background
+    uniqueID: 193074707
+    locked: 0
+  - name: Objects
+    uniqueID: 1564746629
+    locked: 0
+  - name: Player
     uniqueID: 2328717863
     locked: 0

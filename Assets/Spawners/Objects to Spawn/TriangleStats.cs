@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class CircleStats : MonoBehaviour
+public class TriangleStats : MonoBehaviour
 {
-    public float moveSpeed = 6f; // Speed at which the object moves
+    public float moveSpeed = 7f; // Speed at which the object moves
     public float destroyPosition = 30f; // Position at which the object should be destroyed
 
     // Update is called once per frame

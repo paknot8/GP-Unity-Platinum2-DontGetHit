@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class Spawner3 : MonoBehaviour
 {
-    public GameObject spawnPoint;
     public GameObject objectToSpawn; // Prefab to spawn
+    private float spawnInterval = 1f; // Time interval between spawns
+    private float spawnDistanceFromRight = 1f; // Distance from the right side of the screen to spawn
+    private float verticalSpawnRange = 2f; // Range from the top and bottom of the screen to spawn
 
+    private Camera mainCamera;
     private float spawnTimer = 0f;
-    private readonly float spawnInterval = 1f; // Time interval between spawns
+
+    void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     // Update is called once per frame
     void Update()
@@ -25,9 +32,25 @@ public class Spawner3 : MonoBehaviour
             // Reset the timer
             spawnTimer = 0f;
 
-            // Spawn a new object at the spawn point
-            if(objectToSpawn != null){
-                Instantiate(objectToSpawn, spawnPoint.transform.position, Quaternion.identity);
+            // Calculate spawn position on the right side of the screen
+            float screenHeight = 2f * mainCamera.orthographicSize;
+            float screenWidth = screenHeight * mainCamera.aspect;
+            Vector3 spawnPosition = new Vector3(mainCamera.transform.position.x + (screenWidth / 2) + spawnDistanceFromRight, Random.Range(-verticalSpawnRange, verticalSpawnRange), 0f);
+
+            // Clamp spawn position within the vertical range
+            spawnPosition.y = Mathf.Clamp(spawnPosition.y, -mainCamera.orthographicSize + verticalSpawnRange, mainCamera.orthographicSize - verticalSpawnRange);
+
+            // Spawn a new object at the calculated spawn position
+            if (objectToSpawn != null)
+            {
+                GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+                // Attach CapsuleStats script to the spawned object
+                CapsuleStats capsuleStats = spawnedObject.GetComponent<CapsuleStats>();
+                if (capsuleStats != null)
+                {
+                    // Set the destroy position to the left side of the screen
+                    capsuleStats.destroyPosition = -screenWidth / 2 - spawnDistanceFromRight;
+                }
             }
         }
     }

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class CapsuleStats : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Speed at which the object moves
-    public float destroyPosition = 100f; // Position at which the object should be destroyed
+    public float moveSpeed = 6f;
+    public float destroyPosition = -30f;
 
     // Update is called once per frame
     void Update()

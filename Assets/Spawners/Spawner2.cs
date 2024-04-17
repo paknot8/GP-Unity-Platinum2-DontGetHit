@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class Spawner2 : MonoBehaviour
 {
-    public GameObject spawnPoint;
     public GameObject objectToSpawn; // Prefab to spawn
+    private float spawnInterval = 1f; // Time interval between spawns
+    private float spawnDistanceFromLeft = 1f; // Distance from the left side of the screen to spawn
+    private float verticalSpawnPosition = 3f; // Vertical position to spawn objects
 
+    private Camera mainCamera;
     private float spawnTimer = 0f;
-    private readonly float spawnInterval = 1f; // Time interval between spawns
+
+    void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     // Update is called once per frame
     void Update()
@@ -25,9 +32,14 @@ public class Spawner2 : MonoBehaviour
             // Reset the timer
             spawnTimer = 0f;
 
-            // Spawn a new object at the spawn point
-            if(objectToSpawn != null){
-                Instantiate(objectToSpawn, spawnPoint.transform.position, Quaternion.identity);
+            // Calculate spawn position on the left side of the screen
+            float screenHeight = 2f * mainCamera.orthographicSize;
+            Vector3 spawnPosition = new Vector3(mainCamera.transform.position.x - mainCamera.aspect * mainCamera.orthographicSize - spawnDistanceFromLeft, verticalSpawnPosition, 0f);
+
+            // Spawn a new object at the calculated spawn position
+            if (objectToSpawn != null)
+            {
+                Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
             }
         }
     }
