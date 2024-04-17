@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Coins
   - EnemyObject
+  - Music
+  - Sound
   layers:
   - Default
   - TransparentFX
