@@ -40,6 +40,11 @@ public class Game_Manager : MonoBehaviour
         private readonly float immunityDuration = 0.5f;
         private Color immuneColor;
         private Color originalColor;
+
+        // --- Player States --- //
+        public PlayerBaseState playerState;
+        public PlayerIdleState idleState = new();
+        public PlayerMoveState moveState = new();
     #endregion
 
     #region Default Unity
