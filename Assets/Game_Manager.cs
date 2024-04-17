@@ -18,6 +18,7 @@ public class Game_Manager : MonoBehaviour
     public AudioSource keyPressSound;
     public GameObject coinPrefab; // Prefab of the coin to spawn
     public GameObject pauseCanvas;
+    public GameObject lostCanvas;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI scoreText;
     public static int score = 0;
@@ -74,18 +75,6 @@ public class Game_Manager : MonoBehaviour
     }
 
     #region Coin Pickup
-        // // Method to receive message that a coin has been destroyed
-        // // Instantiate a new coin
-        // public void CoinDestroyed(Coin coin)
-        // {
-        //     UpdateScoreText();
-        //     float spawnY = spawnAtTop ? spawnYTop : spawnYBottom;
-        //     spawnAtTop = !spawnAtTop;
-        //     float randomX = Random.Range(minX, maxX);
-        //     Vector3 spawnPosition = new(randomX, spawnY, 0f);
-        //     Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
-        // }
-
         public void CoinDestroyed(Coin coin)
         {
             score++; // Increment the score
@@ -180,7 +169,7 @@ public class Game_Manager : MonoBehaviour
                     if (healthPoints <= 0)
                     {
                         Time.timeScale = 0;
-                        // Open Death menu
+                        lostCanvas.SetActive(true);
                     }
                 }
             }

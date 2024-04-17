@@ -25,8 +25,6 @@ public class UI_Manager : MonoBehaviour
     {
         // Wait for the transition effect to complete to make fade out effect
         yield return new WaitForSeconds(0.3f);
-
-        // Load the scene
         SceneManager.LoadScene(1);
     }
 
