@@ -19,12 +19,12 @@ public class Game_Manager : MonoBehaviour
     public GameObject pauseCanvas;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI scoreText;
-    private int score = 0;
+    public static int score = 0;
     private int healthPoints = 3;
 
     private float spawnYTop; // Y position for top spawn
     private float spawnYBottom; // Y position for bottom spawn
-    private bool spawnAtTop = false; // Flag to track current spawn position
+    private bool spawnAtTop = true; // Flag to track current spawn position
 
     // Singleton pattern
     private static Game_Manager _instance;
@@ -63,6 +63,8 @@ public class Game_Manager : MonoBehaviour
         spawnYBottom = minY;
 
         UpdateHealthText();
+        // Spawn a coin at the start of the game
+        SpawnNewCoin();
     }
 
     void Update()
@@ -71,15 +73,32 @@ public class Game_Manager : MonoBehaviour
     }
 
     #region Coin Pickup
-        // Method to receive message that a coin has been destroyed
-        // Instantiate a new coin
+        // // Method to receive message that a coin has been destroyed
+        // // Instantiate a new coin
+        // public void CoinDestroyed(Coin coin)
+        // {
+        //     UpdateScoreText();
+        //     float spawnY = spawnAtTop ? spawnYTop : spawnYBottom;
+        //     spawnAtTop = !spawnAtTop;
+        //     float randomX = Random.Range(minX, maxX);
+        //     Vector3 spawnPosition = new(randomX, spawnY, 0f);
+        //     Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
+        // }
+
         public void CoinDestroyed(Coin coin)
         {
-            UpdateScoreText();
+            score++; // Increment the score
+            UpdateScoreText(); // Update the score text
+            SpawnNewCoin();
+        }
+
+        // Function to spawn a new coin
+        private void SpawnNewCoin()
+        {
             float spawnY = spawnAtTop ? spawnYTop : spawnYBottom;
             spawnAtTop = !spawnAtTop;
             float randomX = Random.Range(minX, maxX);
-            Vector3 spawnPosition = new(randomX, spawnY, 0f);
+            Vector3 spawnPosition = new Vector3(randomX, spawnY, 0f);
             Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
         }
 
