@@ -37,7 +37,7 @@ public class Game_Manager : MonoBehaviour
 
         // Immunity variables
         private bool isImmune = false;
-        private readonly float immunityDuration = 2f;
+        private readonly float immunityDuration = 0.5f;
         private Color immuneColor;
         private Color originalColor;
     #endregion
@@ -45,11 +45,11 @@ public class Game_Manager : MonoBehaviour
     #region Default Unity
         void Awake()
         {
-            if (transform.GetComponent<SpriteRenderer>() == null)
-            {
-                Debug.LogError("SpriteRenderer component not found on player GameObject.");
-            }
+            SingletonInstance();
+        }
 
+        private void SingletonInstance()
+        {
             if (_instance != null && _instance != this)
             {
                 Destroy(this.gameObject);
@@ -62,6 +62,7 @@ public class Game_Manager : MonoBehaviour
 
         void Start()
         {
+            Time.timeScale = 1; // Always start game on normal mode
             PlayerToCameraBorderCheck();
 
             originalColor = transform.GetComponent<SpriteRenderer>().color;
