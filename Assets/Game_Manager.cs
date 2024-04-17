@@ -22,6 +22,7 @@ public class Game_Manager : MonoBehaviour
         public GameObject lostCanvas;
         public TextMeshProUGUI healthText;
         public TextMeshProUGUI scoreText;
+        public TextMeshProUGUI topScoreText;
         public static int score = 0;
         private int healthPoints = 3;
 
