@@ -4,40 +4,40 @@ using UnityEngine.SceneManagement;
 
 public class InGame_UI_Manager : MonoBehaviour
 {
-    public void GoToMainMenu(){
-        StartCoroutine(LoadSceneWithTransition(0));
-    }
+    public void GoToMainMenu() => StartCoroutine(LoadSceneWithTransition(0));
+    public void PlayAgain() => StartCoroutine(LoadSceneWithTransition(1));
 
-    public void PlayAgain(){
-        StartCoroutine(LoadSceneWithTransition(1));
-    }
-
-    IEnumerator LoadSceneWithTransition(int sceneIndex)
+    private IEnumerator LoadSceneWithTransition(int sceneIndex)
     {
-        yield return new WaitForSeconds(0.3f);
-        if(sceneIndex == 1){
+        ResetValues();
+        yield return new WaitForSeconds(0f);
+        if(sceneIndex == 1)
+        {
             SceneManager.LoadScene(1);
         } 
-
-        if(sceneIndex == 0) {
+        else if(sceneIndex == 0) 
+        {
             SceneManager.LoadScene(0);
-        } 
-
+        }
         Debug.Log("Failed Nothing Selected Index: " + sceneIndex);
     }
 
-    public void QuitGame()
-    {
-        StartCoroutine(ExitWithTransition());
-    }
+    public void ExitGame() => StartCoroutine(ExitWithTransition());
 
-    IEnumerator ExitWithTransition()
+    private IEnumerator ExitWithTransition()
     {
-        yield return new WaitForSeconds(0.3f);
+        ResetValues();
+        yield return new WaitForSeconds(0f);
         #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false; // Quit editor play mode
         #else
                 Application.Quit(); // Quit standalone build
         #endif
+    }
+
+    private void ResetValues()
+    {
+        Game_Manager.isPaused = false;
+        Time.timeScale = 1;
     }
 }

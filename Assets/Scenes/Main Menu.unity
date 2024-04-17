@@ -1443,7 +1443,7 @@ GameObject:
   - component: {fileID: 340803326}
   - component: {fileID: 340803325}
   m_Layer: 5
-  m_Name: Quit
+  m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1515,7 +1515,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 664055443}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3601,7 +3601,7 @@ GameObject:
   - component: {fileID: 902295721}
   - component: {fileID: 902295720}
   m_Layer: 5
-  m_Name: Quit Text
+  m_Name: Exit Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3646,7 +3646,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: Exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

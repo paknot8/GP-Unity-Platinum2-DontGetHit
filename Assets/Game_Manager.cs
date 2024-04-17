@@ -8,7 +8,7 @@ public class Game_Manager : MonoBehaviour
     #region Variables & References
         [Header("Player Variables")]
         public float moveSpeed = 5f;
-        [SerializeField] private bool isPaused = false;
+        public static bool isPaused = false;
         [HideInInspector] public Vector2 vector;
         [HideInInspector] public Vector3 moveDirection;
 
@@ -200,20 +200,25 @@ public class Game_Manager : MonoBehaviour
         void OnPause(InputValue value){
             if (value.isPressed)
             {
+                keyPressSound.Play();
                 PauseGame();
             }
         }
 
         private void PauseGame()
         {
-            isPaused = !isPaused;
-            keyPressSound.Play();
-            if (pauseCanvas != null)
+            if (!isPaused)
             {
-                pauseCanvas.SetActive(isPaused);
+                pauseCanvas.SetActive(true);
+                Time.timeScale = 0;
+                isPaused = false;
             }
-
-            Time.timeScale = isPaused ? 0 : 1;
+            else
+            {
+                Time.timeScale = 1;
+                pauseCanvas.SetActive(false);
+                isPaused = true;
+            }
         }
     #endregion
 

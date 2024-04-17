@@ -21,7 +21,7 @@ public class UI_Manager : MonoBehaviour
     }
 
     // Wait for the transition effect to complete to make fade out effect
-    IEnumerator LoadSceneWithTransition(int sceneIndex)
+    private IEnumerator LoadSceneWithTransition(int sceneIndex)
     {
         yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(1);
@@ -41,12 +41,12 @@ public class UI_Manager : MonoBehaviour
         settingsPanel.SetActive(false);
     }
 
-    public void QuitGame()
+    public void ExitGame()
     {
         StartCoroutine(ExitWithTransition());
     }
 
-    IEnumerator ExitWithTransition()
+    private IEnumerator ExitWithTransition()
     {
         yield return new WaitForSeconds(0.3f);
         #if UNITY_EDITOR
