@@ -128,27 +128,11 @@ public class Game_Manager : MonoBehaviour
     }
     #endregion
 
-    // Function called when the player collides with an enemy object
+    // Function called when the player collides with something
     void OnTriggerEnter2D(Collider2D other)
     {
         EnemyObject(other);
     }
-
-    // // Function called when a coin is collected
-    // public void CollectCoin(Collider2D other)
-    // {
-    //     if (transform.CompareTag("Coins")){
-    //         // Determine spawn position based on spawnAtTop flag
-    //         float spawnY = spawnAtTop ? spawnYTop : spawnYBottom;
-
-    //         // Toggle spawn position flag
-    //         spawnAtTop = !spawnAtTop;
-
-    //         float randomX = Random.Range(minX, maxX);
-    //         Vector3 spawnPosition = new Vector3(randomX, spawnY, 0f);
-    //         Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
-    //     }
-    // }
 
     private void EnemyObject(Collider2D other)
     {
