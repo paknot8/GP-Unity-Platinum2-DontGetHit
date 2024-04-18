@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class CapsuleStats : MonoBehaviour
+public class HexagonStats : MonoBehaviour
 {
     public float moveSpeed;
     public float destroyPosition;
 
     void Awake()
     {
-        moveSpeed = 5f;
+        moveSpeed = 8f;
         destroyPosition = -100f;
     }
 

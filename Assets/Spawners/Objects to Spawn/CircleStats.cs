@@ -2,10 +2,15 @@ using UnityEngine;
 
 public class CircleStats : MonoBehaviour
 {
-    public float moveSpeed = 4f; // Speed at which the object moves
-    public float destroyPosition = 30f; // Position at which the object should be destroyed
+    public float moveSpeed;
+    public float destroyPosition;
 
-    // Update is called once per frame
+    void Awake()
+    {
+        moveSpeed = 4f;
+        destroyPosition = 100f;
+    }
+
     void Update()
     {
         MoveAndDestroy();

@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class TriangleStats : MonoBehaviour
 {
-    public float moveSpeed = 7f; // Speed at which the object moves
-    public float destroyPosition = 30f; // Position at which the object should be destroyed
+    public float moveSpeed;
+    public float destroyPosition;
+
+    void Awake()
+    {
+        moveSpeed = 7f;
+        destroyPosition = 100f;
+    
+    }
 
     // Update is called once per frame
     void Update()
