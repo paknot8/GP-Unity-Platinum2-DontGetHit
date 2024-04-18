@@ -3502,6 +3502,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 309806398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1619480615 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4979775741624277388, guid: 03855093fe747774e9c6afe8c74db202, type: 3}
+  m_PrefabInstance: {fileID: 6780267890118102380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1619480616 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3482997990087942716, guid: 03855093fe747774e9c6afe8c74db202, type: 3}
@@ -4728,6 +4733,10 @@ PrefabInstance:
       propertyPath: LoseHealthSound
       value: 
       objectReference: {fileID: 542825935}
+    - target: {fileID: 2026252669219486427, guid: 60163dcbc5c2b4741aefaa3024888597, type: 3}
+      propertyPath: hardModeSpawner
+      value: 
+      objectReference: {fileID: 1619480615}
     - target: {fileID: 2279460660081222090, guid: 60163dcbc5c2b4741aefaa3024888597, type: 3}
       propertyPath: m_Camera
       value: 
@@ -4849,6 +4858,10 @@ PrefabInstance:
     - target: {fileID: 4979775741624277388, guid: 03855093fe747774e9c6afe8c74db202, type: 3}
       propertyPath: m_Name
       value: SpawnPoint4 Hardmode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979775741624277388, guid: 03855093fe747774e9c6afe8c74db202, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

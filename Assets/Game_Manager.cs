@@ -11,6 +11,7 @@ public class Game_Manager : MonoBehaviour
         public static bool isPaused = false;
         public static bool inGame = false;
         public static bool hardMode = false;
+        public GameObject hardModeSpawner;
         [HideInInspector] public Vector2 vector;
         [HideInInspector] public Vector3 moveDirection;
 
@@ -81,12 +82,22 @@ public class Game_Manager : MonoBehaviour
 
         void Start()
         {
-            Time.timeScale = 1; // Always start game on normal mode
+            TimeAndDifficulty();
             InitializeGameState();
             PlayerToCameraBorderCheck();
             InitializePlayerAppearance();
             InitializeCoinSpawn();
             LoadTopScoreFromPlayerPrefs();
+        }
+
+        private void TimeAndDifficulty()
+        {
+            Time.timeScale = 1; // Always start game on normal mode
+            if(hardMode){
+                hardModeSpawner.SetActive(true);
+            } else {
+                hardModeSpawner.SetActive(false);
+            }
         }
 
         private void InitializeGameState()
