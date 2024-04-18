@@ -70,7 +70,7 @@ public class Keybindings : MonoBehaviour
                 .OnCancel(operation => { RebindCancel(button); });
 
             // Set button text to indicate listening state
-            button.GetComponentInChildren<TMP_Text>().text = "listening...";
+            button.GetComponentInChildren<TMP_Text>().text = "Key...";
             DisableAllButtons();
             rebindingOperation.Start();
         }
