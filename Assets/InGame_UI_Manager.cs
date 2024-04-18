@@ -13,13 +13,13 @@ public class InGame_UI_Manager : MonoBehaviour
         yield return new WaitForSeconds(0f);
         if(sceneIndex == 1)
         {
+            Game_Manager.inGame = false;
             SceneManager.LoadScene(1);
         } 
         else if(sceneIndex == 0) 
         {
             SceneManager.LoadScene(0);
         }
-        Debug.Log("Failed Nothing Selected Index: " + sceneIndex);
     }
 
     public void ExitGame() => StartCoroutine(ExitWithTransition());

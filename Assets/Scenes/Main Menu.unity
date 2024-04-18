@@ -2814,7 +2814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuPanel: {fileID: 622144097}
   settingsPanel: {fileID: 1608220010}
-  buttonSound: {fileID: 0}
+  buttonSound: {fileID: 1222674258}
 --- !u!1 &676315882
 GameObject:
   m_ObjectHideFlags: 0

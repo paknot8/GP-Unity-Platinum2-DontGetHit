@@ -9,6 +9,7 @@ public class Game_Manager : MonoBehaviour
         [Header("Player Variables")]
         public float moveSpeed = 5f;
         public static bool isPaused = false;
+        public static bool inGame = false;
         [HideInInspector] public Vector2 vector;
         [HideInInspector] public Vector3 moveDirection;
 
@@ -60,6 +61,7 @@ public class Game_Manager : MonoBehaviour
         void Awake()
         {
             SingletonInstance();
+            Debug.Log(inGame);
         }
 
         private void SingletonInstance()

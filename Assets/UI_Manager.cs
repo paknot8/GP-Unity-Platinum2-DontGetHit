@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour
 {
+    [Header("Menu Panels")]
     public GameObject mainMenuPanel;
     public GameObject settingsPanel;
-    public AudioSource buttonSound;
 
     void Start()
     {
@@ -23,7 +23,8 @@ public class UI_Manager : MonoBehaviour
     // Wait for the transition effect to complete to make fade out effect
     private IEnumerator LoadSceneWithTransition(int sceneIndex)
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
+        Game_Manager.inGame = true;
         SceneManager.LoadScene(1);
     }
 
@@ -48,7 +49,7 @@ public class UI_Manager : MonoBehaviour
 
     private IEnumerator ExitWithTransition()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false; // Quit editor play mode
         #else
