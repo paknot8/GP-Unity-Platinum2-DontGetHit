@@ -13,7 +13,7 @@ public class PointyBullet : MonoBehaviour
     void Start()
     {
         // Start a coroutine to destroy the bullet
-        StartCoroutine(DestroyAfterDelay(2f));
+        StartCoroutine(DestroyAfterDelay(5f));
     }
 
     void Update()
