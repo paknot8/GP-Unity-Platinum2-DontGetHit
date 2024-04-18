@@ -136,7 +136,14 @@ public class Game_Manager : MonoBehaviour
         public void CoinDestroyed(Coin coin)
         {
             CoinPickSound.Play();
-            score++;
+
+            // If on hard mode, you get 2 poitns each score
+            if(hardMode){
+                score+=2;
+            } else {
+                score++;
+            }
+            
             UpdateScoreText();
             SpawnNewCoin();
         }
