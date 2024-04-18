@@ -30,14 +30,15 @@ public class Game_Manager : MonoBehaviour
         public TextMeshProUGUI topScoreText;
         private int score = 0;
         private int topScore = 0;
-        public AudioSource CoinPickSound;
 
         [Header("Player Health")]
+        public AudioSource LoseHealthSound;
         public TextMeshProUGUI healthText;
         public int healthPoints = 3;
 
         [Header("Coins")]
         public GameObject coinPrefab;
+        public AudioSource CoinPickSound;
         private float spawnYTop; // Y position for top spawn
         private float spawnYBottom; // Y position for bottom spawn
         private bool spawnAtTop = true; // Flag to track current spawn position
@@ -215,13 +216,13 @@ public class Game_Manager : MonoBehaviour
             {
                 pauseCanvas.SetActive(true);
                 Time.timeScale = 0;
-                isPaused = false;
+                isPaused = true;
             }
             else
             {
                 Time.timeScale = 1;
                 pauseCanvas.SetActive(false);
-                isPaused = true;
+                isPaused = false;
             }
         }
     #endregion
@@ -237,6 +238,8 @@ public class Game_Manager : MonoBehaviour
         {
             if (other.CompareTag("EnemyObject"))
             {
+                LoseHealthSound.pitch = 2f; // Increase pitch to increase playback
+                LoseHealthSound.Play();
                 if (!isImmune)
                 {
                     StartCoroutine(ImmunityCoroutine());
