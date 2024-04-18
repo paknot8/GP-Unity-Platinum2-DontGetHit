@@ -63,7 +63,6 @@ public class Game_Manager : MonoBehaviour
         void Awake()
         {
             SingletonInstance();
-            Debug.Log(inGame);
         }
 
         // Creates a singleton instance of the GameManager.
@@ -81,22 +80,35 @@ public class Game_Manager : MonoBehaviour
 
         void Start()
         {
-            // Default state
+            Time.timeScale = 1; // Always start game on normal mode
+            InitializeGameState();
+            PlayerToCameraBorderCheck();
+            InitializePlayerAppearance();
+            InitializeCoinSpawn();
+            LoadTopScoreFromPlayerPrefs();
+        }
+
+        private void InitializeGameState()
+        {
             playerState = idleState;
             playerState.EnterState(this);
+        }
 
-            Time.timeScale = 1; // Always start game on normal mode
-            PlayerToCameraBorderCheck();
-
+        private void InitializePlayerAppearance()
+        {
             originalColor = transform.GetComponent<SpriteRenderer>().color;
+            UpdateHealthText();
+        }
 
+        private void InitializeCoinSpawn()
+        {
             spawnYTop = maxY;
             spawnYBottom = minY;
-
-            UpdateHealthText();
             SpawnNewCoin(); // Spawn the 1st coin at the start of the game
+        }
 
-            // Load top score from PlayerPrefs
+        private void LoadTopScoreFromPlayerPrefs()
+        {
             if(PlayerPrefs.HasKey("TopScore"))
             {
                 topScore = PlayerPrefs.GetInt("TopScore");
@@ -107,7 +119,6 @@ public class Game_Manager : MonoBehaviour
         void Update()
         {
             playerState.UpdateState(this);
-            // Movement();
         }
 
         // Switches the player state to the given state.
