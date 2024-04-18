@@ -1,22 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-// --- Notes --- //
-/* Textmeshpro Sliders
-Drag this Script in the button and select ChangeMusicVolume or ChangeSoundVolume on the OnButtonClick
-To Load it have a GameObject with this Script in it, the start function will load the sound and music levels.
-*/
+// This script manages audio settings and volume control using sliders.
+// Attach this script to a GameObject with sliders for controlling music and sound volume.
 public class Audio_Manager : MonoBehaviour
 {
     [SerializeField] private Slider musicSlider; // Slider for controlling music volume
     [SerializeField] private Slider soundSlider; // Slider for controlling sound effects volume
 
+    // Load volume levels at the start of the game
     void Start() {
         LoadVolumeLevels();
     }
 
+    // Load volume levels from PlayerPrefs
     public void LoadVolumeLevels()
     {
+        // Initialize music and sound volume if not already set
         if (!PlayerPrefs.HasKey("musicVolume"))
         {
             PlayerPrefs.SetFloat("musicVolume", 1);
@@ -25,6 +25,7 @@ public class Audio_Manager : MonoBehaviour
         {
             PlayerPrefs.SetFloat("soundVolume", 1);
         }
+        // Load volume settings
         LoadAllAudioSettings();
     }
 
@@ -38,6 +39,7 @@ public class Audio_Manager : MonoBehaviour
                 audioSource.volume = musicSlider.value;
             }
         }
+        // Save the changes made to the music volume
         SaveMusic();
     }
 

@@ -15,12 +15,13 @@ public class UI_Manager : MonoBehaviour
         settingsPanel.SetActive(false);
     }
 
+    // Initiates the game start sequence.
     public void PlayGame()
     {
         StartCoroutine(LoadSceneWithTransition(1)); // Start the coroutine to load the scene with a transition effect
     }
 
-    // Wait for the transition effect to complete to make fade out effect
+    // Coroutine to load the scene with a transition effect.
     private IEnumerator LoadSceneWithTransition(int sceneIndex)
     {
         yield return new WaitForSeconds(0.1f);
@@ -28,25 +29,27 @@ public class UI_Manager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    // Activates the settings panel and deactivates the main menu panel.
     public void EnableSettings()
     {
-        // Enable settings panel and disable main menu panel
         settingsPanel.SetActive(true);
         mainMenuPanel.SetActive(false);
     }
 
+    // Activates the main menu panel and deactivates the settings panel.
     public void EnableMainMenu()
     {
-        // Enable main menu panel and disable settings panel
         mainMenuPanel.SetActive(true);
         settingsPanel.SetActive(false);
     }
 
+    // Initiates the exit game sequence.
     public void ExitGame()
     {
         StartCoroutine(ExitWithTransition());
     }
 
+    // Coroutine to exit the game with a transition effect.
     private IEnumerator ExitWithTransition()
     {
         yield return new WaitForSeconds(0.1f);
