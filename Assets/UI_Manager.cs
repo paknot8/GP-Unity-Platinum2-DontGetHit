@@ -53,6 +53,11 @@ public class UI_Manager : MonoBehaviour
         StartCoroutine(LoadSceneWithTransition(1));
     }
 
+    public void GoBackFromDifficulty()
+    {
+        difficultyPanel.SetActive(false);
+    }
+
     // Activates the settings panel and deactivates the main menu panel.
     public void EnableSettings()
     {

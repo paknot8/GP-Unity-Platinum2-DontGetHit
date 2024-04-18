@@ -2022,6 +2022,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuPanel: {fileID: 622144097}
   settingsPanel: {fileID: 1608220010}
+  difficultyPanel: {fileID: 286171426}
 --- !u!1 &676315882
 GameObject:
   m_ObjectHideFlags: 0
@@ -3286,7 +3287,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 664055443}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: ExitGame
+        m_MethodName: GoBackFromDifficulty
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5584,7 +5585,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 664055443}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: EnableSettings
+        m_MethodName: HardDifficultyMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6898,7 +6899,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 664055443}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: PlayGame
+        m_MethodName: NormalDifficultyMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
