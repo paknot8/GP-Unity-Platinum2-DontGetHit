@@ -20,6 +20,7 @@ public class UI_Manager : MonoBehaviour
     public void PlayGame()
     {
         difficultyPanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
     }
 
     // Coroutine to load the scene with a transition effect.
@@ -56,6 +57,7 @@ public class UI_Manager : MonoBehaviour
     public void GoBackFromDifficulty()
     {
         difficultyPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
     }
 
     // Activates the settings panel and deactivates the main menu panel.
