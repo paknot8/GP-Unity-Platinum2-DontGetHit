@@ -5,7 +5,8 @@ public class PointyBullet : MonoBehaviour
 {
     private float moveSpeed; // Speed at which the bullet moves
 
-    void Awake(){
+    void Awake()
+    {
         moveSpeed = 2f;
     }
 
@@ -27,6 +28,13 @@ public class PointyBullet : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         // Destroy the bullet object
+        Destroy(gameObject);
+    }
+
+    // Called when the object becomes invisible to any camera
+    void OnBecameInvisible()
+    {
+        // Destroy the bullet when it goes outside the camera view
         Destroy(gameObject);
     }
 }
