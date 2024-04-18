@@ -1,8 +1,8 @@
 using UnityEngine;
 
-// This is to reference which scirptable object will be binded.
-// Drag this into a the Button
+// This script is used to reference which ScriptableObject will be bound to a Button.
+// Attach this script to a Button GameObject and drag the desired ScriptableObject into the Binding field.
 public class AssignedBinding : MonoBehaviour
 {
-    public KeybindingScriptableObject binding;
+    public KeybindingScriptableObject binding; // The ScriptableObject to be bound to this Button.
 }
