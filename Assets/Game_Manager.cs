@@ -10,6 +10,7 @@ public class Game_Manager : MonoBehaviour
         public float moveSpeed = 5f;
         public static bool isPaused = false;
         public static bool inGame = false;
+        public static bool hardMode = false;
         [HideInInspector] public Vector2 vector;
         [HideInInspector] public Vector3 moveDirection;
 
