@@ -11,7 +11,9 @@ public class Audio_Manager : MonoBehaviour
     [SerializeField] private Slider musicSlider; // Slider for controlling music volume
     [SerializeField] private Slider soundSlider; // Slider for controlling sound effects volume
 
-    void Start() => LoadVolumeLevels();
+    void Start() {
+        LoadVolumeLevels();
+    }
 
     public void LoadVolumeLevels()
     {

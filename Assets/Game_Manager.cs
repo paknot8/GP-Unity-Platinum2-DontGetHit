@@ -30,6 +30,7 @@ public class Game_Manager : MonoBehaviour
         public TextMeshProUGUI topScoreText;
         private int score = 0;
         private int topScore = 0;
+        public AudioSource CoinPickSound;
 
         [Header("Player Health")]
         public TextMeshProUGUI healthText;
@@ -118,6 +119,7 @@ public class Game_Manager : MonoBehaviour
     #region Coin Pickup
         public void CoinDestroyed(Coin coin)
         {
+            CoinPickSound.Play();
             score++;
             UpdateScoreText();
             SpawnNewCoin();
