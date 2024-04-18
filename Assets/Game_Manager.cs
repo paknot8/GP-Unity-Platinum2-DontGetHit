@@ -66,6 +66,7 @@ public class Game_Manager : MonoBehaviour
             Debug.Log(inGame);
         }
 
+        // Creates a singleton instance of the GameManager.
         private void SingletonInstance()
         {
             if (_instance != null && _instance != this)
@@ -109,6 +110,7 @@ public class Game_Manager : MonoBehaviour
             // Movement();
         }
 
+        // Switches the player state to the given state.
         public void SwitchState(PlayerBaseState state)
         {
             playerState.ExitState(this);
@@ -118,6 +120,7 @@ public class Game_Manager : MonoBehaviour
     #endregion
 
     #region Coin Pickup
+        // Handles the destruction of a coin when picked up by the player.
         public void CoinDestroyed(Coin coin)
         {
             CoinPickSound.Play();
@@ -126,7 +129,7 @@ public class Game_Manager : MonoBehaviour
             SpawnNewCoin();
         }
 
-        // Function to spawn a new coin
+        // Spawns a new coin at a random location.
         private void SpawnNewCoin()
         {
             float spawnY = spawnAtTop ? spawnYTop : spawnYBottom;
@@ -136,6 +139,7 @@ public class Game_Manager : MonoBehaviour
             Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
         }
 
+        // Updates the score text UI.
         void UpdateScoreText()
         {
             if (scoreText != null)
@@ -144,7 +148,7 @@ public class Game_Manager : MonoBehaviour
             }
         }
 
-        // Function to update top score text
+        // Updates the top score text UI.
         private void UpdateTopScoreText()
         {
             if (topScoreText != null)
@@ -153,14 +157,14 @@ public class Game_Manager : MonoBehaviour
             }
         }
 
-        // Function to save top score
+        // Saves the top score to player preferences.
         private void SaveTopScore()
         {
             PlayerPrefs.SetInt("TopScore", topScore);
             PlayerPrefs.Save();
         }
 
-        // Function to check and update top score
+        // Checks if the current score exceeds the top score, and updates it if necessary.
         private void CheckAndUpdateTopScore()
         {
             if (score > topScore)
@@ -173,6 +177,7 @@ public class Game_Manager : MonoBehaviour
     #endregion
 
     #region Player
+        // Checks if the player is within the camera borders.
         private void PlayerToCameraBorderCheck()
         {
             mainCamera = Camera.main;
@@ -189,6 +194,7 @@ public class Game_Manager : MonoBehaviour
             maxY = mainCamera.transform.position.y + camHeight / 2f - playerHeight / 2f;
         }
 
+        // Handles player movement based on input.
         public void Movement()
         {
             moveDirection = new Vector3(vector.x, vector.y);
@@ -201,7 +207,10 @@ public class Game_Manager : MonoBehaviour
     #endregion
 
     #region New Input System
+        // Handles player movement input.
         void OnMove(InputValue value) => vector = value.Get<Vector2>();
+
+        // Handles pause input.
         void OnPause(InputValue value){
             if (value.isPressed)
             {
@@ -210,6 +219,7 @@ public class Game_Manager : MonoBehaviour
             }
         }
 
+        // Pauses or resumes the game.
         private void PauseGame()
         {
             if (!isPaused)
@@ -227,13 +237,14 @@ public class Game_Manager : MonoBehaviour
         }
     #endregion
 
-    // Function called when the player collides with something
+    // Handles collisions with the player.
     void OnTriggerEnter2D(Collider2D other)
     {
         EnemyObject(other);
     }
 
     #region Death & Health
+        // Handles interactions with enemy objects.
         private void EnemyObject(Collider2D other)
         {
             if (other.CompareTag("EnemyObject"))
@@ -254,7 +265,7 @@ public class Game_Manager : MonoBehaviour
             }
         }
 
-        // Coroutine for immunity effect
+        // Coroutine for the immunity effect.
         IEnumerator ImmunityCoroutine()
         {
             healthPoints--;
@@ -276,7 +287,7 @@ public class Game_Manager : MonoBehaviour
             Debug.Log("You can now receive damage.");
         }
 
-        // Update health text to display current health points
+        // Updates the health text UI.
         void UpdateHealthText()
         {
             if (healthText != null)
