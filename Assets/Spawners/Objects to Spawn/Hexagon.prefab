@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 2747690628134850419, guid: 16037dbd798344f57a526d53d48f5ead, type: 3}
-  m_Color: {r: 0.8546181, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.4811321, g: 0, b: 0.019643541, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -199,10 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea9a10ec5f562a4387871ed28ac5b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
-  destroyPosition: -5
   projectilePrefab: {fileID: 2991369647247811037, guid: 6835bf723f7efd14d89c584de105cfe5, type: 3}
-  shootInterval: 1
 --- !u!210 &8307890730483329712
 SortingGroup:
   m_ObjectHideFlags: 0

@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.122001305, g: 0, b: 0.7924528, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -216,7 +216,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  coinPrefab: {fileID: 2056767094642262319, guid: 462f344205162864ea036dfb0820604c, type: 3}
+  hardModeSpawner: {fileID: 0}
+  vector: {x: 0, y: 0}
+  moveDirection: {x: 0, y: 0, z: 0}
+  keyPressSound: {fileID: 0}
   pauseCanvas: {fileID: 0}
-  healthText: {fileID: 0}
+  lostCanvas: {fileID: 0}
   scoreText: {fileID: 0}
+  topScoreText: {fileID: 0}
+  LoseHealthSound: {fileID: 0}
+  healthText: {fileID: 0}
+  healthPoints: 3
+  coinPrefab: {fileID: 2056767094642262319, guid: 462f344205162864ea036dfb0820604c, type: 3}
+  CoinPickSound: {fileID: 0}
