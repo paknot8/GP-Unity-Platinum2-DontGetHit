@@ -225,6 +225,17 @@ public class Game_Manager : MonoBehaviour
         }
 
         // Handles player movement based on input.
+        // public void Movement()
+        // {
+        //     moveDirection = new Vector3(vector.x, vector.y);
+        //     Vector3 newPosition = transform.position + moveSpeed * Time.deltaTime * moveDirection;
+
+        //     float clampedX = Mathf.Clamp(newPosition.x, minX, maxX);
+        //     float clampedY = Mathf.Clamp(newPosition.y, minY, maxY);
+        //     transform.position = new Vector3(clampedX, clampedY, transform.position.z);
+        // }
+
+        // Handles player movement based on input.
         public void Movement()
         {
             moveDirection = new Vector3(vector.x, vector.y);
@@ -233,6 +244,12 @@ public class Game_Manager : MonoBehaviour
             float clampedX = Mathf.Clamp(newPosition.x, minX, maxX);
             float clampedY = Mathf.Clamp(newPosition.y, minY, maxY);
             transform.position = new Vector3(clampedX, clampedY, transform.position.z);
+
+            // Calculate angle between current position and target position
+            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+
+            // Rotate the player sprite to face the movement direction
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     #endregion
 
